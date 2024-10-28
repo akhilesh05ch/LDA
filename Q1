@@ -1,0 +1,78 @@
+#Import necessary libraries
+Import numpy as np
+import matplotlib.pyplot as plt
+Tron SKtearn lhbor caraseus
+from sklearn.model_selection import train_test_split
+Trom sklearn.preprocessing import StandardScaler
+sklearn-metrics import accuracy_score, precision_score, recall_score,
+confusion_matrix
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
+Tron sklearn. Linear_model import Logistickegression import seaborn as sns
+# 1. Load the wine dataset
+were = udlasels. lude wanic
+wine.datal
+* reatures (13 Teatures)
+y = wine. larget
+# Target labels (3 classes)
+# 2. Split the Data (70% training,
+30% testing)
+X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
+# Standardize the features (mean = 0, std = 1)
+scaler = StandardScaler ()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+# 3. Train an LDA Model
+lda_classifier = LDA()
+lda_classifier.fit(X_train_scaled, Y_train)
+# 4. Evaluate the LDA Model
+y_pred_lda = Ida_classifier.predict(X_test_scaled)
+# Calculate accuracy, precision, recall, and confusion matrix
+accuracy_lda = accuracy_score(y_test, y_pred_lda)
+precision_lda = precision_score(y_test, y_pred_lda, average='macro")
+recall_lda = recall_score(y_test, y_pred_lda, average='macro')
+conf_matrix_lda = confusion_matrixy_test, y_pred_lda)
+print("LDA Classifier Performance:")
+print(f"Accuracy: {accuracy_lda:.4f}, Precision: {precision_lda:.4f}, Recall: {recall_(da:.4f}")
+print ("Confusion Matrix:\n", conf_matrix_lda)
+# 5. Compare with Logistic Regression
+logreg_classifier = LogisticRegression(max_iter=1000)
+logreg_classifier.fit(X_train_scaled, y_train)
+y_pred_logreg = logreg_classifier.predict(X_test_scaled)
+# Evaluate Logistic Regression model
+accuracy_logreg = accuracy_score(y_test, _pred_logreg)
+precision_logreg = precision_score(y_test, y_pred_logreg, average='macro')
+recall loarea = recall score(v test. v pred loarea, averade='macro')
+# Evaluate Logistic Regression model
+accuracy_logreg = accuracy_score(y_test, y_pred_logreg)
+precision_logreg = precision_score(y_test, Y_pred_logreg, average='macro')
+recall_logreg = recall_score(y_test, y_pred_logreg, average='macro')
+conf_matrix_logreg = confusion_matrix(y_test, y_pred_logreg)
+print("\nLogistic Regression Performance:")
+print(f"Accuracy: {accuracy_logreg:.4f}, Precision: {precision_logreg:.4f}, Recall: {recall_logreg:.4f}")
+print ("Confusion Matrix:\n", conf_matrix_logreg)
+# 6. Visualize Decision Boundaries (Optional)
+# We will reduce the dataset to 2 dimensions using PCA for this visualization
+from sklearn.decomposition import PCA
+# Reduce dataset to 2D for visualization
+pca = PCA(n_components=2)|
+X_train_pca = pca.fit_transform(X_train_scaled)
+X_test_pca = pca. transform(X_test_scaled)
+# Fit LDA and Logistic Regression on 2D PCA data
+lda_classifier_pca = LDA()
+lda_classifier_pca.fit(X_train_pca, y_train)
+logreg_classifier_pca = LogisticRegression(max_iter=1000)
+logreg_classifier_pca.fit(X_train_pca, y_train)
+# Plot decision boundaries for LDA
+plt. figure(figsize=(12, 5))
+plt.subplot(1, 2, 1)
+plt. title('LDA Decision Boundary (2D PCA) ') sns.scatterplot(x=X_test_pca[:, 0), y=X_test_pca[:, 1], hue=y_test, palette='Set1', s=100)
+plt.scatter(X_test_pcal:, 0], X_test_pca[:, 1], c=y_pred_lda, alpha=0.3, label='LDA Prediction') plt. legend () plt. grid (True)
+# Plot decision boundaries for Logistic Regression
+plt.subplot (1, 2, 2)
+plt.title('Logistic Regression Decision Boundary (2D PCA) ')| sns.scatterplot(x=X_test_pca[:, 0], y=X_test_pca[:, 1], hue=y_test, palette='Setl' ,
+• s=100)
+plt.scatter(X_test_pcal:, 0], X_test_pca[:, 1], c=y_pred_logreg, alpha=0.3, label='Logistic Regression Prediction')
+plt. legendt)
+plt.grid(True)
+plt.tight_layout()
+plt. show()
