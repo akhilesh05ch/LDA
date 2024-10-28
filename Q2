@@ -1,0 +1,48 @@
+#Importing necessary libraries
+import numpy as np
+ import matplotlib.pyplot as plt 
+import seaborn as sns from sklearn 
+import datasets from sklearn.preprocessing
+ import StandardScaler from sklearn.decomposition
+ import PCA from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
+
+ # 1. Load the Iris dataset
+iris = datasets. load_iris()
+X = iris.data
+• # Features
+y = iris.target # Target labels
+target_names = iris. target_names
+
+# 2. Data Standardization (mean = 0, std = 1)
+scaler = StandardScaler ()
+X_standardized = scaler.fit_transform (X)
+
+# 3. Apply LDA: Reduce the dataset to 2 components
+lda = LDA (n_components=2)
+X_lda = lda. fit_transform(X_standardized, y)
+
+# 4. Visualization: 2D Scatter plot of LDA-transformed data
+plt. figure (figsize=(8, 6))
+for i, target_name in enumerate(target_names):
+plt.scatter (X_lda [y == i, 0], X_lda[y == i, 1], label=target_name, alpha=0.7)
+plt. title('LDA: 2 Components')
+plt.xlabel( 'First LDA Component' )
+plt.ylabel( 'Second LDA Component')
+plt. legend ( )
+plt. grid (True)
+plt. show()
+
+
+#5. Compare LDA with PCA
+# Apply PCA (already standardized data)
+pca = PCA (n_components=2)
+X_pca = pca. fit_transform (X_standardized)
+
+# Visualization: 2D Scatter plot of PCA-transformed data
+plt. figure(figsize=(8, 6)) for i, target
+_name in enumerate (target_names):
+plt.scatter (X_pcaly == i, 0], X_pcaly == i, 11, label=target_name, alpha=0.7) plt.title('PCA: 2 Components') plt xlabel( 'First PCA Component' )
+plt.ylabel( 'Second PCA Component' )
+plt. legend()
+plt. grid (True)
+plt. show()
